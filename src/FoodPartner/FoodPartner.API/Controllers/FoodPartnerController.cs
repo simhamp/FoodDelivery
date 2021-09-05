@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 
 namespace FoodPartner.API.Controllers
 {
+  [ApiController]
+  [Route("api/v1/[controller]")]
   public class FoodPartnerController : ControllerBase
   {
     private readonly IFoodPartnerRepository _repository;
@@ -44,9 +46,9 @@ namespace FoodPartner.API.Controllers
       }
       return Ok(menu);
     }
-       
 
-    [HttpPost]
+
+    [HttpPost(Name = "CreateMenu")]
     [ProducesResponseType(typeof(Menu), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<Menu>> CreateMenu([FromBody] Menu menu)
     {
@@ -55,7 +57,7 @@ namespace FoodPartner.API.Controllers
       return CreatedAtRoute("GetMenu", new { id = menu.Id }, menu);
     }
 
-    [HttpPut]
+    [HttpPut(Name = "UpdateMenu")]
     [ProducesResponseType(typeof(Menu), (int)HttpStatusCode.OK)]
     public async Task<IActionResult> UpdateMenu([FromBody] Menu menu)
     {
