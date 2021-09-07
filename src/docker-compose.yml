@@ -1,6 +1,44 @@
 version: '3.4'
 
 services:
-   customerdb:
+  customerdb:
     image: mcr.microsoft.com/mssql/server:2017-latest
     
+  orderdb:
+    image: mcr.microsoft.com/mssql/server:2017-latest
+
+  FoodPartnerDb:
+    image: mongo
+
+  DeliveryPartnerDb:
+    image: mongo
+
+  customer.api:
+    image: ${DOCKER_REGISTRY-}customerapi
+    build:
+      context: .
+      dockerfile: Customer.API/Dockerfile
+
+
+  deliverypartner.api:
+    image: ${DOCKER_REGISTRY-}deliverypartnerapi
+    build:
+      context: .
+      dockerfile: DeliveryPartner/DeliveryPartner.API/Dockerfile
+
+
+  foodpartner.api:
+    image: ${DOCKER_REGISTRY-}foodpartnerapi
+    build:
+      context: .
+      dockerfile: FoodPartner/FoodPartner.API/Dockerfile
+
+
+  foodordering.api:
+    image: ${DOCKER_REGISTRY-}foodorderingapi
+    build:
+      context: .
+      dockerfile: Ordering/FoodOrdering/Dockerfile
+
+volumes:
+  mongo_data:

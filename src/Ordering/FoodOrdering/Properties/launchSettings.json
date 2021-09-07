@@ -3,7 +3,7 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:61601",
+      "applicationUrl": "http://localhost:51815",
       "sslPort": 0
     }
   },
@@ -17,7 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "DeliveryPartner.API": {
+    "FoodOrdering": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "swagger",

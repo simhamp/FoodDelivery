@@ -8,4 +8,69 @@ services:
       ACCEPT_EULA: "Y"
     restart: always
     ports:
-        - "1433:1433"
+      - "1433:1433"
+
+  orderdb:
+    container_name: orderdb
+    environment:
+      SA_PASSWORD: "Admin@12345"
+      ACCEPT_EULA: "Y"
+    restart: always
+    ports:
+      - "1434:1433"
+
+  DeliveryPartnerDb:
+    container_name: DeliveryPartnerDb
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  FoodPartnerDb:
+    container_name: FoodPartnerDb
+    restart: always
+    ports:
+      - "27018:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  customer.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ConnectionStrings:CustomerConnectionString=Server=customerdb;Database=CustomerDb;User Id=sa;Password=Admin@12345"
+    depends_on:
+      - customerdb        
+    ports:
+      - "8000:80"
+
+
+  deliverypartner.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "DatabaseSettings:ConnectionString=mongodb://DeliveryPartnerDb:27017"
+    depends_on:
+      - DeliveryPartnerDb
+    ports:
+      - "8001:80"
+
+
+  foodpartner.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "DatabaseSettings:ConnectionString=mongodb://FoodPartnerDb:27017"
+    depends_on:
+      - FoodPartnerDb
+    ports:
+      - "8002:80"
+
+
+  foodordering.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ConnectionStrings:OrderConnectionString=Server=orderdb;Database=OrderDb;User Id=sa;Password=Admin@12345"
+    depends_on:
+      - orderdb
+    ports:
+      - "8003:80"
+

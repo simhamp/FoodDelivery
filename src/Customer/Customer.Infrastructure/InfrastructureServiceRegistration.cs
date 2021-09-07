@@ -17,7 +17,7 @@ namespace Customer.Infrastructure
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
     {
       services.AddDbContext<CustomerContext>(options =>
-          options.UseSqlServer(configuration.GetConnectionString("OrderingConnectionString")));
+          options.UseSqlServer(configuration.GetConnectionString("CustomerConnectionString")));
 
       services.AddScoped(typeof(IAsyncRepository<>), typeof(RepositoryBase<>));
       services.AddScoped<ICustomerRepository, CustomerRepository>();      
