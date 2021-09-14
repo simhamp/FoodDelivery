@@ -24,14 +24,14 @@ namespace Customer.API.Controllers
       _mediator = medaitor ?? throw new ArgumentNullException(nameof(medaitor));
     }
 
-    //[HttpGet("{userName}", Name = "GetOrder")]
-    //[ProducesResponseType(typeof(IEnumerable<CustomerVm>), (int)HttpStatusCode.OK)]
-    //public async Task<ActionResult<IEnumerable<CustomerVm>>> GetOrdersByUserName()
-    //{
-    //  var query = new CustomerListQuery();
-    //  var orders = await _mediator.Send(query);
-    //  return Ok(orders);
-    //}
+    [HttpGet("{userName}", Name = "GetOrder")]
+    [ProducesResponseType(typeof(IEnumerable<CustomerVm>), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<IEnumerable<CustomerVm>>> GetOrdersByUserName()
+    {
+      var query = new CustomerListQuery();
+      var orders = await _mediator.Send(query);
+      return Ok(orders);
+    }
 
     [HttpPost(Name = "SaveCustomer")]
     [ProducesResponseType((int)HttpStatusCode.OK)]

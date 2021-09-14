@@ -28,15 +28,15 @@ namespace Customer.Application.Features.Commands.DeleteCustomer
 
     public async Task<Unit> Handle(DeleteCustomerCommand request, CancellationToken cancellationToken)
     {
-      var customerToDelete = _customerRepository.GetByIdAsync(request.Id);
+      var customerToDelete = await _customerRepository.GetByIdAsync(request.Id);
 
       if(customerToDelete == null)
       {
         //throw new NotFoundException();
       }
 
-      var customerEntiry = _mapper.Map<CustomerEntity>(customerToDelete);
-      await _customerRepository.DeleteAsync(customerEntiry);
+      //var customerEntiry = _mapper.Map<CustomerEntity>(customerToDelete);
+      await _customerRepository.DeleteAsync(customerToDelete);
 
       _logger.LogInformation($"Customer {customerToDelete.Id} is successfully deleted.");
 
