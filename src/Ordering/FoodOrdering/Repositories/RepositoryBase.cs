@@ -72,6 +72,7 @@ namespace FoodOrdering.API.Repositories
     public async Task UpdateAsync(T entity)
     {
       _dbContext.Entry(entity).State = EntityState.Modified;
+      _dbContext.Entry(entity).Collection("Items").FindEntry(entity).State = EntityState.Modified;
       await _dbContext.SaveChangesAsync();
     }
 

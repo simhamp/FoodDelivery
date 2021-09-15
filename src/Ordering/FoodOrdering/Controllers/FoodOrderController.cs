@@ -40,16 +40,7 @@ namespace FoodOrdering.API.Controllers
       
       return Ok();
     }
-
-    [HttpPut(Name = "UpdateFoodOrder")]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [ProducesDefaultResponseType]
-    public async Task<ActionResult> UpdateFoodOrder([FromBody] FoodOrder updateOrder)
-    {
-       await _repository.UpdateAsync(updateOrder);
-      return NoContent();
-    }
+    
 
     [HttpDelete("{id}", Name = "DeleteFoodOrder")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
